@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 
 def get_config():
@@ -21,8 +22,9 @@ def create_app(config=None):
     if config:
         app.config.update(config)
 
-    @app.route('/')
-    def home():
-        return 'Home'
+    db = SQLAlchemy(app)
+    
+    from app.routes.users_routes import users_bp
+    app.register_blueprint(users_bp, url_prefix='/api/users')
 
     return app

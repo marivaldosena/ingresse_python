@@ -1,4 +1,7 @@
-FROM python:3.7-alpine
+FROM python:3.7-slim
+
+RUN apt-get update && apt-get install -qq -y \
+  build-essential libpq-dev --no-install-recommends
 
 ENV APP_PATH /app
 RUN mkdir -p ${APP_PATH}
