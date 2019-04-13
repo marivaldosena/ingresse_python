@@ -5,4 +5,5 @@ SECRET_KEY = os.environ.get('SECRET_KEY') or \
     '331168d77efc93d6dcef1e13761890d5b764bccc74c730c3a7d743e7b6a01499'
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-  'postgresql://username:password@hostname/dev_database'
+    'postgresql://username:password@hostname/dev_database'
+SERVER_NAME = 'localhost:5000'
