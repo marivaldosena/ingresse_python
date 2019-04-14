@@ -46,3 +46,13 @@ def update_user(user_id):
     db.session.commit()
 
     return jsonify(usuario.to_json()), 200
+
+
+@users_bp.route('<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    usuario = Usuario.query.get_or_404(user_id)
+
+    db.session.delete(usuario)
+    db.session.commit()
+
+    return jsonify({'status': 'Usuário excluído.'}), 204
