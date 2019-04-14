@@ -1,6 +1,13 @@
 import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+
+from app.extensions import (
+    db,
+    bcrypt,
+    migrate
+)
+
+from app.routes.users_routes import users_bp
 
 
 def get_config():
@@ -22,9 +29,16 @@ def create_app(config=None):
     if config:
         app.config.update(config)
 
-    db = SQLAlchemy(app)
-    
-    from app.routes.users_routes import users_bp
     app.register_blueprint(users_bp, url_prefix='/api/users')
 
+    extensions(app)
+
     return app
+
+
+def extensions(app):
+    db.init_app(app)
+    bcrypt.init_app(app)
+    migrate.init_app(app, db)
+
+    return None
