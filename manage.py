@@ -7,9 +7,13 @@ manager = Manager(create_app)
 
 
 @manager.command
-def test():
-    pytest.main(['-s', 'app/tests', '-p', 'no:warnings'])
-    pytest.main
+def test(coverage=False):
+    comandos = ['-s', 'app/tests', '-p', 'no:warnings']
+
+    if coverage:
+        comandos.append('--cov')
+
+    pytest.main(comandos)
 
 
 if __name__ == '__main__':
