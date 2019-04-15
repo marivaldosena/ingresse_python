@@ -22,13 +22,17 @@ def get_user(user_id):
 def create_user():
     json = request.get_json()
 
-    usuario = Usuario(nome=json.get('nome', None),
-                      email=json.get('email', None),
-                      senha=json.get('senha', None)
-                      )
+    try:
+        usuario = Usuario(nome=json.get('nome', None),
+                          email=json.get('email', None),
+                          senha=json.get('senha', None)
+                          )
 
-    db.session.add(usuario)
-    db.session.commit()
+        db.session.add(usuario)
+        db.session.commit()
+
+    except AssertionError as err:
+        return jsonify({'status': str(err)}), 403
 
     return jsonify(usuario.to_json()), 201
 

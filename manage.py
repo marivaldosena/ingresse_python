@@ -1,4 +1,4 @@
-import pytest
+import commands
 from flask_script import Manager
 from flask_migrate import MigrateCommand
 from app import create_app
@@ -8,12 +8,17 @@ manager = Manager(create_app)
 
 @manager.command
 def test(coverage=False):
-    comandos = ['-s', 'app/tests', '-p', 'no:warnings']
+    commands.test(coverage=coverage)
 
-    if coverage:
-        comandos.append('--cov')
 
-    pytest.main(comandos)
+@manager.command
+def seed():
+    commands.seed()
+
+
+@manager.command
+def drop_all():
+    commands.drop_all()
 
 
 if __name__ == '__main__':

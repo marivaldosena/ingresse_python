@@ -13,4 +13,6 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+COPY manage.py manage.py
+
 CMD gunicorn -b 0.0.0.0:5000 --access-logfile - "app:create_app()"
